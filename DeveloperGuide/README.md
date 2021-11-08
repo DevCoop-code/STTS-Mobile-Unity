@@ -2,24 +2,25 @@
 This guide is intended for unity developers who want to use STT & TTS on Android & iOS.
 There are 2 way to use STTS Unity Plugin. First is making code use our API. Second is using C# Script which already made.
 
-## Using 'STTSProvider' Component
-You can easily use STT & TTS on Unity using **STTSProvider** Component in your Unity Project.
-
-
 ## Using API - C# Code Level
+You can easily learn to it from the STTSDemo Script File in DemoScene(Demo Scene location: Assets/STTS/Scenes/DemoScene)
+
 ### Creating STTS Instance
-Do not instantiate this class directly, Instead, call **STTSFactory** class's **GetInstance()** function
+Do not instantiate this class directly, Instead, call **STTSFactory** class's **GetInstance()** function. and you should implement **STTSCallback** interface.
 ```
 using STTSCore.Engine;
 using STTSCore.Utility;
 
-STTS stts = STTSFactory.GetInstance();
+public class STTSDemo : MonoBehaviour, STTSCallback
+{
+    STTS stts = STTSFactory.GetInstance();
+}
 ```
 
 ### Init the STTS
 Initializes the STTS Instance by providing language setting & GameObject Name
 ```
-stts.init(STTSLangTypes.KO, gameObject.name);
+stts.init(STTSLangTypes.EN_USA, gameObject.name);
 ```
 Parameter
 - 1st parameter(langType): The Language Setting
@@ -32,6 +33,7 @@ Register the callback method that receives the result value. Registering the cal
 ```
 // for ios
 STTS.onEvent += EventNotify;
+STTS.onErrorEvent += ErrorCallback;
 
 // STT Result Event - iOS
 public void EventNotify(string result)
@@ -40,23 +42,31 @@ public void EventNotify(string result)
     if (result != null)
         // Do what do you want. the result parameter is the result of STT
 }
-```
 
-- Android
-```
-// for aos
-stts.SetResultCallback("STTListener");
-
-// STT Result Event - Android
-void STTListener(string result)
+// Error Event
+public void ErrorCallback(string error)
 {
-    Debug.Log("[STT] Result: " + result);
-    if (result != null)
-        // Do what do you want. the result parameter is the result of STT
+    Debug.Log("[Exception] Error: " + error);
 }
 ```
 
-In Android, you should use **SetResultCallback** method and input the Callback Method Name. 
+- Android
+You should implement STTSCallback Function
+```
+// STT Result Event
+public void STTResultCallback(string result)
+{
+    Debug.Log("[STT] Result: " + result);
+    if (result != null)
+        sttResultText.text = result;
+}
+
+// Error Event
+public void ErrorCallback(string error)
+{
+    Debug.Log("[Exception] Error: " + error);
+}
+```
 
 **Callback Method Must be in the Same Location as STTS Init Function**
 
