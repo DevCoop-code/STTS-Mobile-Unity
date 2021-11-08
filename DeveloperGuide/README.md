@@ -35,7 +35,7 @@ Register the callback method that receives the result value. Registering the cal
 STTS.onEvent += EventNotify;
 STTS.onErrorEvent += ErrorCallback;
 
-// STT Result Event - iOS
+// STT Result Event
 public void EventNotify(string result)
 {
     Debug.Log("[EventNotify] Result: " + result);
