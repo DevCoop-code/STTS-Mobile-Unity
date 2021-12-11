@@ -4,7 +4,7 @@ The STTS Mobile Unity Plugin is the unity plugin that can use STT & TTS on Andro
 The SDK enables unity developers to easily use 'Speech To Text(STT)' & 'Text To Speech(TTS)' on Android and iOS apps without having to write Java or Objective-C Code. The plugin provides a C# interface for STT & TTS that is used by C# scripts in your Unity project.
 
 ## Download
-**Unity Asset Store's Reviewing now....**
+[DOWNLOAD](https://assetstore.unity.com/packages/tools/integration/stts-206827#description)
 
 ## Documentation
 The [developer guide](https://github.com/hankyojeong/STTS-Mobile-Unity/tree/master/DeveloperGuide) provides a STTS API information
